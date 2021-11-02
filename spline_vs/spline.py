@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename, send_file
 import os
 from PIL import Image
 import io
+import json
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -48,10 +49,12 @@ def annotate():
 
     plt.imshow(img)
 
-    k = 2 # int(request.form.get('k', 1))
+    
+
+    k = int(request.form.get('k', 1))
     # t = np.arange(6)
-    t = [10, 50, 100, 120, 220, 310, 450, 530, 600]
-    c = [10, 7, 3, 10, 1, 5]
+    t = json.loads(request.form.get('t',[]))
+    c = json.loads(request.form.get('c', []))
 
     spl = interpolate.BSpline(t, c, k)
 
