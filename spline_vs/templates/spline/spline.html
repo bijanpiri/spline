@@ -1,14 +1,19 @@
 <!doctype html>
 
 <title> Spline Annotator</title>
-
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
     <h1>DanaXa Spline Image Annotator </h>
     <p>
-        use following end points
+        use following Rest end points
 
         <ul>
             <li>/annotate</li>
         </ul>
     </p>
 </nav>
+<section class="content">
+    {% for message in get_flashed_messages()%}
+        <div class="flash">{{message}}</div>
+    {% endfor%}
+</section>
