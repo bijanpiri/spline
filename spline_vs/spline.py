@@ -3,7 +3,7 @@ from flask import Blueprint, flash, redirect, request, Response, render_template
 from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename, send_file
 import os
-from PIL import Image
+from PIL import Image, ImageDraw
 import io
 import json
 
@@ -26,21 +26,27 @@ def index():
 def annotate():
     """
         Rest API for to annotate images with spline
-        :param image:
+        In order to make it work you have to provide t,c,k 
+        and image parameters within your POST requests
+        
+        Here is an example:
+        
+        t = [110,125, 150, 200, 320, 420, 550, 610]
+        c = [12, -1, 13,-2, 10]
+        k = 2
+        image = your_image.jpg
 
     """
 
     # Check if Request has image file field
     if not 'image' in request.files:
-        # flash("No image has been uploaded for spline annotation")
-        # return redirect(request.url)
-        return  "No image has been uploaded for spline annotation", 400
+        return "No image has been uploaded for spline annotation", 400
 
     image_file = request.files['image']
-    # image_path = os.path.join(current_app.config['UPLOAD_FOLDER'],
-    #                           secure_filename(image_file.filename))
 
-    form = request.form
+    form = request.form  # shorter variable
+
+    # Checks for parameters
 
     loss_params_messages = {
         't': 'Knot points not found in your request. Check if the "t" parameter is set.',
@@ -52,42 +58,36 @@ def annotate():
                       for key in loss_params_messages if not key in form]
 
     if error_messages:
-        return "Invalid Request:\n"+"\n".join(error_messages),400
-    # image_file.save(image_path)
-
-    # reads image from uploaded by form using provided flask's FileStorage
-    img = plt.imread(image_file)
-
-    plt.imshow(img)
+        return "Invalid Request:\n"+"\n".join(error_messages), 400
 
     k = int(form['k'])
-    # t = np.arange(6)
     t = json.loads(form['t'])
     c = json.loads(form['c'])
 
-    spl = interpolate.BSpline(t, c, k)
-
-    # intervals =[np.arange(a,b+.1,.1) for a,b in zip(t[0:-1],t[1:])]
-
-    # for xx in intervals:
-    #     plt.plot(xx, spl(xx))
-
-    xx = np.arange(t[0], t[-1]+.1, .1)
-    # xx= np.linspace(0,len(c)//2-k,100)
-    plt.plot(xx, spl(xx), 'r')
-    # plt.plot(xx, interpolate.splev(xx, (t, c, k)), 'g')
-    plt.plot(t, spl(t), 'og')
-    # plt.axis('off')
-    # plt.show()
-
     buffer = io.BytesIO()
 
-    plt.savefig(buffer, bbox_inches='tight')
-    # with Image.open(image_file) as im:
-    #     im = im.rotate(90)
-    #     # im.save(image_path)
+    with Image.open(image_file) as im:
+        draw = ImageDraw.Draw(im)
+        spl = interpolate.BSpline(t, c, k)
 
-    #     im.save(buffer, "JPEG")
-    buffer.seek(0)
+        # Computing Spline and drawing it on image
+        # generates x values in range of t(0) to t(n)
+        xx = np.linspace(t[0], t[-1], t[-1]-t[0])
+        # evaluate generated x in spline function to generate list of (x,y) tuples
+        xy = [(x, y) for x, y in zip(xx, spl(xx))]
+        draw.line(xy, fill=200, width=3)
+
+        # Marks knot points on spline:
+        ky = [(x, y) for x, y in zip(t, spl(t))]
+        xy0 = np.array(ky) - 4
+        xy1 = np.array(ky) + 4
+        for p1, p2 in zip(xy0, xy1):
+            draw.ellipse([tuple(p1), tuple(p2)],
+                         fill=(0, 220, 20), outline=255)
+
+        # Saves images with drawn spline to buffer in order to make response
+        im.save(buffer, 'JPEG')
+        # Reset buffer head to the start to make its content readable by send_file
+        buffer.seek(0)
 
     return send_file(buffer, environ=request.environ, mimetype="image/jpeg")
