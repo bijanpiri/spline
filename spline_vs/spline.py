@@ -34,14 +34,25 @@ def annotate():
     if not 'image' in request.files:
         # flash("No image has been uploaded for spline annotation")
         # return redirect(request.url)
-        return {
-            'response': "No image has been uploaded for spline annotation"
-        }, 400
+        return  "No image has been uploaded for spline annotation", 400
 
     image_file = request.files['image']
     # image_path = os.path.join(current_app.config['UPLOAD_FOLDER'],
     #                           secure_filename(image_file.filename))
 
+    form = request.form
+
+    loss_params_messages = {
+        't': 'Knot points not found in your request. Check if the "t" parameter is set.',
+        'c': 'No coefficient has been set. Recheck your c parameter',
+        'k': 'Degree of spline has not been sent. set the k parameter'
+    }
+
+    error_messages = [loss_params_messages[key]
+                      for key in loss_params_messages if not key in form]
+
+    if error_messages:
+        return "Invalid Request:\n"+"\n".join(error_messages),400
     # image_file.save(image_path)
 
     # reads image from uploaded by form using provided flask's FileStorage
@@ -49,12 +60,10 @@ def annotate():
 
     plt.imshow(img)
 
-    
-
-    k = int(request.form.get('k', 1))
+    k = int(form['k'])
     # t = np.arange(6)
-    t = json.loads(request.form.get('t',[]))
-    c = json.loads(request.form.get('c', []))
+    t = json.loads(form['t'])
+    c = json.loads(form['c'])
 
     spl = interpolate.BSpline(t, c, k)
 
