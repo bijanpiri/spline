@@ -16,10 +16,18 @@ from scipy import interpolate
 bp = Blueprint('spline', __name__, url_prefix='/sp')
 
 
+
 @bp.route('/')
 def index():
     print(url_for('static', filename='style.css'))
     return render_template('spline/spline.html')
+
+
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = current_app.config['ALLOWED_IMAGE_EXTENSIONS']
+
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @bp.route('/annotate', methods=['POST'])
@@ -39,10 +47,13 @@ def annotate():
     """
 
     # Check if Request has image file field
-    if not 'image' in request.files:
+    if 'image' not in request.files:
         return "No image has been uploaded for spline annotation", 400
 
-    image_file = request.files['image']
+    image_file: FileStorage = request.files['image']
+
+    if not allowed_file(image_file.filename):
+        return "This file extension is not supported.", 400
 
     form = request.form  # shorter variable
 
