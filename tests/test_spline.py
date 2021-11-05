@@ -2,7 +2,8 @@ import pytest
 import io
 from spline_vs import create_app, config
 from werkzeug.datastructures import FileStorage
-import PIL
+from PIL import Image
+
 from flask import Flask
 
 
@@ -24,7 +25,7 @@ def mock_image():
     """
         Creates a 400x400 JPEG black image to be sent by post requests.
     """
-    im = PIL.Image.new(mode='RGB', size=(400, 400), color=(0, 0, 0))
+    im = Image.new(mode='RGB', size=(400, 400), color=(0, 0, 0))
     buffer = io.BytesIO()
     im.save(buffer, format='JPEG')
     buffer.seek(0)
@@ -45,6 +46,24 @@ def test_spline_annotate_image_bad_extension(client, mock_image):
 
     assert rv.status_code == 400
     assert b'This file extension is not supported.' in rv.data
+
+def test_spline_annotate_image(client, mock_image):
+    """
+    sends correct request and test if it response with a 400x400 image 
+    """
+    
+    data = {
+        'image': mock_image,
+        't': '[100, 200,300,400]',
+        'c': '[50,100,80,100]',
+        'k': 1
+    }
+    rv = client.post('/sp/annotate', data=data,
+                     content_type='multipart/form-data')
+
+    assert rv.status_code == 200
+    image = Image.open(io.BytesIO(rv.data))
+    assert image.size==(400,400)
 
 
 def test_spline_annotate_image_corrupted_content(client):

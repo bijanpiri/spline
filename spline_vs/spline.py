@@ -17,12 +17,6 @@ from scipy import interpolate
 bp = Blueprint('spline', __name__, url_prefix='/sp')
 
 
-@bp.route('/')
-def index():
-    print(url_for('static', filename='style.css'))
-    return render_template('spline/spline.html')
-
-
 def allowed_file(filename):
     ALLOWED_EXTENSIONS = current_app.config['ALLOWED_IMAGE_EXTENSIONS']
 
