@@ -1,9 +1,10 @@
+[TOC]
 ## Danaxa Spline Image Annotator
----
 
 This program has been designed with Flask to annotate an image with spline requests with tck parameters and attached image.
 
-###1. Clone 
+
+### 1. Clone 
 
 To make a copy of [code](https://github.com/bijanpiri/spline) run 
 
@@ -11,7 +12,7 @@ To make a copy of [code](https://github.com/bijanpiri/spline) run
 
 You can also use above git page to download source as a zip file if you like.
 
-###2. Create and activate virtual environment
+### 2. Create and activate virtual environment
 
 It is better to create a virtual environment to avoid package conflicts.
 
@@ -27,7 +28,7 @@ or on Windows cmd:
 > env\Scripts\activate.bat
 
 ```
-###3. Install dependencies
+### 3. Install dependencies
 
 To install related packages that are necessary to run this program execute:
 
@@ -35,7 +36,7 @@ To install related packages that are necessary to run this program execute:
 
 while `env` virtual environment is activated.
 
-###4. Run flask web service
+### 4. Run flask web service
 
 on linux execute:
 
@@ -73,7 +74,7 @@ But in order to test spline visualization you need to make a **POST** request to
 Flask blueprint are like Django apps that make it easier to write reusable codes like python packages.
 
 
-###5. Test with Postman
+### 5. Test with Postman
 
 I have created **POST** requests to test different test case including invalid post request. 
 
@@ -97,7 +98,7 @@ or save and import json.
 
 Please attach your desired image file for image field before sending POST requests because it has not been encoded in postman json files.
 
-###6. Test with pytest and coverage
+### 6. Test with pytest and coverage
 
 I have written 11 tests for annotating image with tck parameter and image which you can run by
 
@@ -153,5 +154,4 @@ tests/test_spline.py       47      0   100%
 TOTAL                     122      3    98%
 
 ```
-
 
