@@ -1,0 +1,472 @@
+{
+	"info": {
+		"_postman_id": "b3dd8925-8c43-48fb-b986-336c055cebea",
+		"name": "DanaXa",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Annotate Spline",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "t",
+							"value": "[110,125, 150, 200, 320, 420, 550, 610]",
+							"description": "Knot points in BSpline in increasing order",
+							"type": "text"
+						},
+						{
+							"key": "c",
+							"value": "[12, 1, 13,2, 10]",
+							"description": "Coefficients of BSpline",
+							"type": "text"
+						},
+						{
+							"key": "k",
+							"value": "2",
+							"description": "Degree of BSpline",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/home/bijan/projects/danaxa/resources/1607655600-5776.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/sp/annotate",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"sp",
+						"annotate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Annotate Spline parameter decoding error",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "t",
+							"value": "[110,125, 150, 200, 320, 420, 550, 610]",
+							"description": "Knot points in BSpline in increasing order",
+							"type": "text"
+						},
+						{
+							"key": "c",
+							"value": "[12, 1, 13,2, 10,1,,,,,]",
+							"description": "Coefficients of BSpline",
+							"type": "text"
+						},
+						{
+							"key": "k",
+							"value": "2",
+							"description": "Degree of BSpline",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/home/bijan/projects/danaxa/resources/1607655600-5776.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/sp/annotate",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"sp",
+						"annotate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Annotate Spline parameter decoding k error",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "t",
+							"value": "[110,125, 150, 200, 320, 420, 550, 610]",
+							"description": "Knot points in BSpline in increasing order",
+							"type": "text"
+						},
+						{
+							"key": "c",
+							"value": "[12, 1, 13,2, 10,1]",
+							"description": "Coefficients of BSpline",
+							"type": "text"
+						},
+						{
+							"key": "k",
+							"value": "a",
+							"description": "Degree of BSpline",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/home/bijan/projects/danaxa/resources/1607655600-5776.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/sp/annotate",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"sp",
+						"annotate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Annotate Spline Insufficient knots for degree",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "t",
+							"value": "[110,125, 150]",
+							"description": "Knot points in BSpline in increasing order",
+							"type": "text"
+						},
+						{
+							"key": "c",
+							"value": "[12, 1, 13,2, 10]",
+							"description": "Coefficients of BSpline",
+							"type": "text"
+						},
+						{
+							"key": "k",
+							"value": "2",
+							"description": "Degree of BSpline",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/home/bijan/projects/danaxa/resources/1607655600-5776.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/sp/annotate",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"sp",
+						"annotate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Annotate Spline Inconsistent t,c,k",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "t",
+							"value": "[110,125, 150, 200, 320, 420, 550, 610]",
+							"description": "Knot points in BSpline in increasing order",
+							"type": "text"
+						},
+						{
+							"key": "c",
+							"value": "[12, 1,  10]",
+							"description": "Coefficients of BSpline",
+							"type": "text"
+						},
+						{
+							"key": "k",
+							"value": "2",
+							"description": "Degree of BSpline",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/home/bijan/projects/danaxa/resources/1607655600-5776.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/sp/annotate",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"sp",
+						"annotate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Annotate Spline Invalid image content",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "t",
+							"value": "[110,125, 150, 200, 320, 420, 550, 610]",
+							"description": "Knot points in BSpline in increasing order",
+							"type": "text"
+						},
+						{
+							"key": "c",
+							"value": "[12, 1, 13,2, 10]",
+							"description": "Coefficients of BSpline",
+							"type": "text"
+						},
+						{
+							"key": "k",
+							"value": "2",
+							"description": "Degree of BSpline",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/home/bijan/Pictures/invalid_image.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/sp/annotate",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"sp",
+						"annotate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Annotate Spline Invalid image extension",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "t",
+							"value": "[110,125, 150, 200, 320, 420, 550, 610]",
+							"description": "Knot points in BSpline in increasing order",
+							"type": "text"
+						},
+						{
+							"key": "c",
+							"value": "[12, 1, 13,2, 10]",
+							"description": "Coefficients of BSpline",
+							"type": "text"
+						},
+						{
+							"key": "k",
+							"value": "2",
+							"description": "Degree of BSpline",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/home/bijan/Pictures/bijan-card"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/sp/annotate",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"sp",
+						"annotate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Annotate Spline Without Image",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "t",
+							"value": "[110,125, 150, 200, 320, 420, 550, 610]",
+							"description": "Knot points in BSpline in increasing order",
+							"type": "text"
+						},
+						{
+							"key": "c",
+							"value": "[12, -1, 13,-2, 10]",
+							"description": "Coefficients of BSpline",
+							"type": "text"
+						},
+						{
+							"key": "k",
+							"value": "2",
+							"description": "Degree of BSpline",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/sp/annotate",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"sp",
+						"annotate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Annotate Spline without tck params",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "t",
+							"value": "[110,125, 150, 200, 320, 420, 550, 610]",
+							"description": "Knot points in BSpline in increasing order",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "c",
+							"value": "[12, -1, 13,-2, 10]",
+							"description": "Coefficients of BSpline",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "k",
+							"value": "2",
+							"description": "Degree of BSpline",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/home/bijan/projects/danaxa/resources/1607655600-5776.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/sp/annotate",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"sp",
+						"annotate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
