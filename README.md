@@ -1,9 +1,8 @@
-[TOC]
 ## Danaxa Spline Image Annotator
 
 This program has been designed with Flask to annotate an image with spline requests with tck parameters and attached image.
 
-
+In order to see what was my approach to solve this task please take a look at [DanaXa Spline approach](docs/approach.md).
 ### 1. Clone 
 
 To make a copy of [code](https://github.com/bijanpiri/spline) run 
